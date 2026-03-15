@@ -1,8 +1,8 @@
 <div class="padding-layout py-8">
   <h1 class="h1-bold text-gray-900 mb-4">{{car.title}} - {{car.brand}}</h1>
 
-  <div class="bg-white-0 rounded-[10px] p-4 shadow-lg mb-4">
-    <img id="activeImage" src="{{car.filePath}}" alt="{{car.title}}" class="w-full max-w-4xl h-auto rounded-[10px] object-cover" />
+  <div class="mb-4" style="display:inline-block; max-width:100%;">
+    <img id="activeImage" src="{{car.filePath}}" alt="{{car.title}}" class="rounded-[10px] shadow-lg" style="display:block; max-width:100%; height:auto;" />
   </div>
 
   {{#if car.images.length}}
@@ -46,6 +46,10 @@
 </div>
 
 <script>
+  const allImages = [{{#each car.images}}'{{this.path}}'{{#unless @last}},{{/unless}}{{/each}}];
+  const frontImage = allImages.find(p => p.includes('front'));
+  if (frontImage) document.getElementById('activeImage').src = frontImage;
+
   function setActiveImage(path) {
     document.getElementById('activeImage').src = path;
   }

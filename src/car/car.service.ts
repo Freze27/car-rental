@@ -22,6 +22,10 @@ export class CarService {
 
   create(dto: CreateCarDto) {
     const { images, ...data } = dto;
+    const folder = data.filePath.substring(0, data.filePath.lastIndexOf('/') + 1);
+    const autoImages = ['front', 'back', 'inside'].map((name) => ({
+      path: `${folder}${name}.webp`,
+    }));
     return this.prisma.car.create({
       data: {
         ...data,
@@ -30,7 +34,7 @@ export class CarService {
         horsePower: Number(data.horsePower),
         maxGasoline: Number(data.maxGasoline),
         dailyRate: Number(data.dailyRate),
-        images: images ? { create: images.map((path: string) => ({ path })) } : undefined,
+        images: { create: images ? images.map((path: string) => ({ path })) : autoImages },
       },
       include: { category: true, images: true },
     });

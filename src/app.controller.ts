@@ -14,6 +14,18 @@ export class AppController {
     const user = userId
       ? await this.prisma.user.findUnique({ where: { id: Number(userId) } })
       : null;
-    return { popularCars: cars.slice(0, 4), recommendedCars: cars.slice(4), user };
+    return { popularCars: cars.slice(0, 4), recommendedCars: cars.slice(4, 8), user };
+  }
+
+  @Get('profile')
+  @Render('profile')
+  async profile(@Query('userId') userId?: string) {
+    const user = userId
+      ? await this.prisma.user.findUnique({
+          where: { id: Number(userId) },
+          include: { rents: { include: { car: true } } },
+        })
+      : null;
+    return { user };
   }
 }

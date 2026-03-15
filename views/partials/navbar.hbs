@@ -6,7 +6,7 @@
     <div class="flex items-center gap-6">
       <a href="/cars/catalog" style="color:#9ca3af; text-decoration:none; font-size:14px; font-weight:500;" onmouseover="this.style.color='#f9fafb'" onmouseout="this.style.color='#9ca3af'">All Cars</a>
       {{#if user}}
-        <a href="/users/{{user.id}}">
+        <a href="/profile?userId={{user.id}}">
           <img src="/assets/nav-avatar-Cjxu169C.png" alt="Avatar" class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 ring-blue-500 transition-all" />
         </a>
         <form method="POST" action="/auth/logout" class="d-inline">

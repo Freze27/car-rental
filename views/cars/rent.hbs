@@ -31,7 +31,7 @@
   <aside class="bg-white-0 rounded-[10px] p-6 shadow-md space-y-4">
     <h2 class="text-base font-semibold text-gray-900">Rental Summary</h2>
     <div class="flex items-center gap-4">
-      <img src="{{car.filePath}}" alt="{{car.title}}" class="h-20 w-32 object-contain rounded-md bg-white-200" />
+      <img id="rentCarImg" src="{{car.filePath}}" alt="{{car.title}}" class="h-20 w-32 object-contain rounded-md bg-white-200" />
       <div>
         <p class="text-sm font-semibold text-gray-900">{{car.title}}</p>
         <p class="text-xs text-gray-500">{{car.category.name}}</p>
@@ -49,6 +49,10 @@
 </div>
 
 <script>
+  const carImages = [{{#each car.images}}'{{this.path}}'{{#unless @last}},{{/unless}}{{/each}}];
+  const frontImg = carImages.find(p => p.includes('front'));
+  if (frontImg) document.getElementById('rentCarImg').src = frontImg;
+
   const dailyRate = {{car.dailyRate}};
 
   function calcTotal() {
