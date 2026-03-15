@@ -55,4 +55,8 @@ export class CarService {
   remove(id: number) {
     return this.prisma.car.delete({ where: { id } });
   }
+
+  findAllCategories() {
+    return this.prisma.category.findMany();
+  }
 }

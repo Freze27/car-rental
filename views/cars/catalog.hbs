@@ -1,0 +1,51 @@
+<div style="padding: 32px; max-width: 1400px; margin: 0 auto;">
+  <div style="margin-bottom: 32px;">
+    <h1 style="font-size: 28px; font-weight: 700; color: #f9fafb; margin-bottom: 16px;">All Cars</h1>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="filter-btn active" onclick="filterCars('all')">All</button>
+      {{#each categories}}
+      <button class="filter-btn" onclick="filterCars('{{this.name}}')">{{this.name}}</button>
+      {{/each}}
+    </div>
+  </div>
+
+  <div id="cars-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+    {{#each cars}}
+    <div class="car-item" data-category="{{this.category.name}}">
+      {{> car-card}}
+    </div>
+    {{/each}}
+  </div>
+
+  {{#unless cars.length}}
+  <p style="color: #6b7280; text-align: center; padding: 48px 0;">No cars available.</p>
+  {{/unless}}
+</div>
+
+<style>
+  .filter-btn {
+    background: #374151;
+    color: #9ca3af;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: #3b82f6;
+    color: white;
+  }
+</style>
+
+<script>
+function filterCars(category) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.car-item').forEach(item => {
+    item.style.display = (category === 'all' || item.dataset.category === category) ? 'block' : 'none';
+  });
+}
+</script>

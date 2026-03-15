@@ -22,6 +22,16 @@ export class CarController {
     return { ...ADMIN_LAYOUT };
   }
 
+  @Get('catalog')
+  @Render('cars/catalog')
+  async catalog() {
+    const [cars, categories] = await Promise.all([
+      this.carService.findAll(),
+      this.carService.findAllCategories(),
+    ]);
+    return { cars, categories };
+  }
+
   @Get(':id')
   @Render('cars/show')
   async findOne(@Param('id') id: string) {
