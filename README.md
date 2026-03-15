@@ -1,9 +1,7 @@
 # Car Rental
-
 Приложение для аренды автомобилей.
 
 ## Ссылка на приложение
-
 https://car-rental-57ea.onrender.com/
 
 ## Запуск проекта
@@ -20,6 +18,9 @@ npm run start:dev
 npm run start:prod
 ```
 
-## Автор
+## Схема БД
+<img width="692" height="791" alt="Image" src="https://github.com/user-attachments/assets/db263171-29e1-4e31-b832-342ecf3716f5" />
 
+
+## Автор
 Anton Ragulin
