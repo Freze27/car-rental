@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  firstName   String
+  lastName    String
+  displayName String
+  password    String
+  image       String?
+  createdAt   DateTime @default(now())
+  rents       Rent[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  cars Car[]
+}
+
+model Car {
+  id               Int        @id @default(autoincrement())
+  title            String
+  brand            String
+  filePath         String
+  seatCapacity     Int
+  horsePower       Int
+  maxGasoline      Int
+  transmissionType String
+  dailyRate        Float
+  categoryId       Int
+  category         Category   @relation(fields: [categoryId], references: [id])
+  images           CarImage[]
+  rents            Rent[]
+}
+
+model CarImage {
+  id    Int    @id @default(autoincrement())
+  path  String
+  carId Int
+  car   Car    @relation(fields: [carId], references: [id])
+}
+
+model Rent {
+  id          Int      @id @default(autoincrement())
+  totalAmount Float
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+  userId      Int
+  carId       Int
+  user        User     @relation(fields: [userId], references: [id])
+  car         Car      @relation(fields: [carId], references: [id])
+}
