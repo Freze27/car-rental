@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MORENT Admin</title>
+  <link rel="stylesheet" href="/assets/index-DUNQpWgu.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" />
+  <style>
+    body { background: #111827; color: #f9fafb; min-height: 100vh; }
+    .admin-nav { background: #1f2937; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #374151; }
+    .admin-nav a { color: #9ca3af; text-decoration: none; font-size: 14px; font-weight: 500; margin-right: 24px; }
+    .admin-nav a:hover { color: #f9fafb; }
+    .admin-nav .brand { color: #3b82f6; font-size: 20px; font-weight: 700; }
+    .admin-main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+    .form-card { background: #1f2937; border-radius: 12px; padding: 32px; max-width: 600px; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 13px; color: #9ca3af; margin-bottom: 6px; font-weight: 500; }
+    .form-input { width: 100%; background: #111827; border: 1px solid #374151; border-radius: 8px; padding: 10px 14px; color: #f9fafb; font-size: 14px; outline: none; box-sizing: border-box; }
+    .form-input:focus { border-color: #3b82f6; }
+    .btn-admin-primary { background: #3b82f6; color: white; border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-admin-secondary { background: transparent; color: #9ca3af; border: 1px solid #374151; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-admin-danger { background: #ef4444; color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-admin-edit { background: #3b82f6; color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-admin-view { background: transparent; color: #9ca3af; border: 1px solid #374151; border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; }
+    h1 { font-size: 28px; font-weight: 700; color: #f9fafb; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; background: #1f2937; border-radius: 12px; overflow: hidden; }
+    th { padding: 14px 16px; text-align: left; font-size: 13px; color: #6b7280; border-bottom: 1px solid #374151; }
+    td { padding: 14px 16px; font-size: 14px; color: #d1d5db; border-bottom: 1px solid #374151; }
+    tr:last-child td { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <nav class="admin-nav">
+    <div>
+      <span class="brand">MORENT</span>
+      <span style="color:#374151; margin: 0 16px;">|</span>
+      <a href="/cars">Cars</a>
+      <a href="/rents">Rents</a>
+      <a href="/users">Users</a>
+    </div>
+    <a href="/">← Back to site</a>
+  </nav>
+  <main class="admin-main">
+    {{{body}}}
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+</body>
+</html>

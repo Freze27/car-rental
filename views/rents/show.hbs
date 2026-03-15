@@ -1,0 +1,11 @@
+<a href="/rents" class="btn btn-outline-secondary mb-3">&larr; Back</a>
+
+<h1>Rent #{{rent.id}}</h1>
+<table class="table col-md-6">
+  <tr><td>User</td><td>{{rent.user.displayName}}</td></tr>
+  <tr><td>Car</td><td>{{rent.car.title}}</td></tr>
+  <tr><td>Start Date</td><td>{{rent.startDate}}</td></tr>
+  <tr><td>End Date</td><td>{{rent.endDate}}</td></tr>
+  <tr><td>Total Amount</td><td>${{rent.totalAmount}}</td></tr>
+</table>
+<a href="/rents/{{rent.id}}/edit" class="btn btn-primary">Edit</a>

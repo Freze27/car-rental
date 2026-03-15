@@ -1,0 +1,23 @@
+<nav class="sticky top-0 z-40 flex h-[100px] w-full items-center border-b border-slate-300/40 bg-white-0">
+  <div class="padding-layout flex w-full flex-row items-center justify-between">
+    <a href="/" class="flex items-center">
+      <img src="/assets/Logo-Bo-LahEz.png" alt="MORENT Logo" class="h-8 md:h-11" />
+    </a>
+    <div class="flex items-center gap-4">
+      {{#if user}}
+        <a href="/users/{{user.id}}">
+          <img src="/assets/nav-avatar-Cjxu169C.png" alt="Avatar" class="h-10 w-10 rounded-full object-cover cursor-pointer hover:ring-2 ring-blue-500 transition-all" />
+        </a>
+        <form method="POST" action="/auth/logout" class="d-inline">
+          <button type="submit" class="px-4 py-2 bg-red-400 text-white rounded-md font-semibold hover:opacity-80 transition-opacity text-sm">
+            Logout
+          </button>
+        </form>
+      {{else}}
+        <a href="/auth/login" class="px-4 py-2 bg-blue-500 text-white rounded-md font-semibold hover:opacity-80 transition-opacity text-sm">
+          Sign In
+        </a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

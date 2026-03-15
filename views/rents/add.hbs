@@ -1,0 +1,30 @@
+<h1>Add Rent</h1>
+
+<div class="form-card">
+  <form method="POST" action="/rents">
+    <div class="form-group">
+      <label class="form-label">User ID</label>
+      <input type="number" name="userId" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Car ID</label>
+      <input type="number" name="carId" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Start Date</label>
+      <input type="date" name="startDate" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">End Date</label>
+      <input type="date" name="endDate" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Total Amount ($)</label>
+      <input type="number" name="totalAmount" class="form-input" required>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:24px;">
+      <a href="/rents" class="btn-admin-secondary">Cancel</a>
+      <button type="submit" class="btn-admin-primary">Create</button>
+    </div>
+  </form>
+</div>

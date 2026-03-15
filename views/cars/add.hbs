@@ -1,0 +1,46 @@
+<h1>Add Car</h1>
+
+<div class="form-card">
+  <form method="POST" action="/cars">
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input type="text" name="title" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Brand</label>
+      <input type="text" name="brand" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Category ID</label>
+      <input type="number" name="categoryId" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">File Path</label>
+      <input type="text" name="filePath" class="form-input" placeholder="/cars/911/outside.webp" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Seat Capacity</label>
+      <input type="number" name="seatCapacity" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Horse Power</label>
+      <input type="number" name="horsePower" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Max Gasoline (L)</label>
+      <input type="number" name="maxGasoline" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Transmission Type</label>
+      <input type="text" name="transmissionType" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Daily Rate ($)</label>
+      <input type="number" name="dailyRate" class="form-input" required>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:24px;">
+      <a href="/cars" class="btn-admin-secondary">Cancel</a>
+      <button type="submit" class="btn-admin-primary">Create</button>
+    </div>
+  </form>
+</div>

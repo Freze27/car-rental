@@ -1,0 +1,52 @@
+<div class="padding-layout py-8">
+  <h1 class="h1-bold text-gray-900 mb-4">{{car.title}} - {{car.brand}}</h1>
+
+  <div class="bg-white-0 rounded-[10px] p-4 shadow-lg mb-4">
+    <img id="activeImage" src="{{car.filePath}}" alt="{{car.title}}" class="w-full max-w-4xl h-auto rounded-[10px] object-cover" />
+  </div>
+
+  {{#if car.images.length}}
+  <div class="flex flex-wrap gap-4 mb-8">
+    {{#each car.images}}
+    <button type="button" onclick="setActiveImage('{{this.path}}')" class="rounded-lg border-2 p-1 transition-colors border-transparent hover:border-blue-300">
+      <img src="{{this.path}}" alt="view" class="h-20 w-32 object-cover rounded-md" />
+    </button>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Category</div>
+      <div class="text-lg font-semibold text-gray-900">{{car.category.name}}</div>
+    </div>
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Seat Capacity</div>
+      <div class="text-lg font-semibold text-gray-900">{{car.seatCapacity}} People</div>
+    </div>
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Fuel</div>
+      <div class="text-lg font-semibold text-gray-900">{{#if car.maxGasoline}}{{car.maxGasoline}}L{{else}}Electric{{/if}}</div>
+    </div>
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Transmission</div>
+      <div class="text-lg font-semibold text-gray-900">{{car.transmissionType}}</div>
+    </div>
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Horse Power</div>
+      <div class="text-lg font-semibold text-gray-900">{{car.horsePower}} HP</div>
+    </div>
+    <div class="p-4 bg-white-0 rounded-[10px]">
+      <div class="text-sm text-gray-400 mb-2">Daily Rate</div>
+      <div class="text-lg font-semibold text-gray-900">${{car.dailyRate}}/day</div>
+    </div>
+  </div>
+
+  <a href="/cars/{{car.id}}/rent" class="btn-rent inline-block">Rent Now</a>
+</div>
+
+<script>
+  function setActiveImage(path) {
+    document.getElementById('activeImage').src = path;
+  }
+</script>

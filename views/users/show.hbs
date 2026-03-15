@@ -1,0 +1,45 @@
+<div class="padding-layout py-8 max-w-4xl mx-auto space-y-8">
+  <h1 class="h1-bold text-gray-900">Profile</h1>
+
+  <div class="bg-white-0 rounded-[10px] p-8 shadow-md">
+    <img src="/assets/nav-avatar-Cjxu169C.png" alt="Avatar" class="w-24 h-24 rounded-full mb-4 object-cover" />
+    <div class="mt-4 space-y-4">
+      <div>
+        <div class="text-sm text-gray-400 mb-1">Display Name</div>
+        <div class="text-lg font-semibold text-gray-900">{{user.displayName}}</div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400 mb-1">First Name</div>
+        <div class="text-lg font-semibold text-gray-900">{{user.firstName}}</div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400 mb-1">Last Name</div>
+        <div class="text-lg font-semibold text-gray-900">{{user.lastName}}</div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400 mb-1">Email</div>
+        <div class="text-lg font-semibold text-gray-900">{{user.email}}</div>
+      </div>
+    </div>
+    <a href="/users/{{user.id}}/edit" class="btn-primary mt-6 inline-block">Edit Profile</a>
+  </div>
+
+  <div class="bg-white-0 rounded-[10px] p-8 shadow-md">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Rental History</h2>
+    {{#if user.rents.length}}
+      <div class="space-y-3">
+        {{#each user.rents}}
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between rounded-lg border border-gray-200 px-4 py-3 gap-2">
+          <div>
+            <div class="font-semibold text-gray-900">{{this.car.title}}</div>
+            <div class="text-sm text-gray-500">{{this.startDate}} — {{this.endDate}}</div>
+          </div>
+          <div class="text-sm font-semibold text-blue-500 md:text-right">${{this.totalAmount}}</div>
+        </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <p class="text-gray-500 text-sm">No rentals yet.</p>
+    {{/if}}
+  </div>
+</div>

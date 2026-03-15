@@ -1,0 +1,40 @@
+<article class="flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white-0 p-4 transition-all hover:scale-105 lg:p-6 shadow-md hover:shadow-lg h-full cursor-pointer" onclick="window.location='/cars/{{this.id}}'">
+  <section class="flex items-center justify-between">
+    <div class="w-full">
+      <h1 class="truncate whitespace-nowrap text-base font-semibold text-gray-900 md:text-xl md:font-bold">{{this.title}}</h1>
+      <p class="text-xs font-medium text-gray-400 md:text-sm md:font-bold">{{this.category.name}}</p>
+    </div>
+  </section>
+
+  <section class="flex flex-row justify-between gap-8 text-sm text-gray-400 sm:gap-14 md:flex-col">
+    <div class="flex w-full md:items-center md:justify-center">
+      <div class="relative h-[115px] w-full">
+        <img src="{{this.filePath}}" alt="{{this.title}}" class="h-full w-full object-contain p-2" />
+      </div>
+    </div>
+    <section class="flex w-24 shrink-0 flex-col gap-3 sm:w-full sm:flex-row sm:gap-2 md:flex-wrap md:items-center md:justify-between">
+      <div class="flex shrink-0 items-center gap-2">
+        <img src="/assets/GasIcon-DoRWZHCk.png" alt="Gas" class="h-4 w-4 md:h-6 md:w-6" />
+        <p class="text-xs md:text-sm">{{#if this.maxGasoline}}{{this.maxGasoline}}L{{else}}Electric{{/if}}</p>
+      </div>
+      <div class="flex shrink-0 items-center gap-2">
+        <img src="/assets/Wheel-BwaBUavN.png" alt="Transmission" class="h-4 w-4 md:h-6 md:w-6" />
+        <p class="text-xs md:text-sm">{{this.transmissionType}}</p>
+      </div>
+      <div class="flex shrink-0 items-center gap-2">
+        <img src="/assets/Users-Cjum5mTp.png" alt="Seats" class="h-4 w-4 md:h-6 md:w-6" />
+        <p class="text-xs md:text-sm">{{this.seatCapacity}} People</p>
+      </div>
+    </section>
+  </section>
+
+  <section class="flex items-center justify-between gap-2">
+    <p>
+      <span class="text-base font-bold text-gray-900 md:text-xl">${{this.dailyRate}} / </span>
+      <span class="ml-1 text-xs font-bold text-gray-400 md:text-sm">day</span>
+    </p>
+    <a href="/cars/{{this.id}}/rent" onclick="event.stopPropagation()" class="btn-primary ml-6 w-[100px] md:w-fit">
+      Rent Now
+    </a>
+  </section>
+</article>

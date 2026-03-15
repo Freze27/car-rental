@@ -1,0 +1,49 @@
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+  <h1 style="margin:0;">Rents</h1>
+  <a href="/rents/add" class="btn-admin-primary">Add Rent</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Car</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rents}}
+    <tr>
+      <td>{{this.id}}</td>
+      <td>{{this.user.displayName}}</td>
+      <td style="font-weight:600; color:#f9fafb;">{{this.car.title}}</td>
+      <td>{{this.startDate}}</td>
+      <td>{{this.endDate}}</td>
+      <td style="color:#3b82f6; font-weight:600;">${{this.totalAmount}}</td>
+      <td>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <a href="/rents/{{this.id}}/edit" class="btn-admin-edit">Edit</a>
+          <form method="POST" action="/rents/{{this.id}}/delete" style="display:inline;">
+            <button type="submit" class="btn-admin-danger">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {{/each}}
+    {{#unless rents.length}}
+    <tr><td colspan="7" style="color:#6b7280;">No rents yet.</td></tr>
+    {{/unless}}
+  </tbody>
+</table>
+
+<script>
+  const es = new EventSource('/rents/events');
+  es.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+    toastr.info('New rent created for: ' + data.carTitle);
+  };
+</script>

@@ -1,0 +1,30 @@
+<h1>Add User</h1>
+
+<div class="form-card">
+  <form method="POST" action="/users">
+    <div class="form-group">
+      <label class="form-label">First Name</label>
+      <input type="text" name="firstName" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Last Name</label>
+      <input type="text" name="lastName" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Display Name</label>
+      <input type="text" name="displayName" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" name="email" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" class="form-input" required>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:24px;">
+      <a href="/users" class="btn-admin-secondary">Cancel</a>
+      <button type="submit" class="btn-admin-primary">Create</button>
+    </div>
+  </form>
+</div>

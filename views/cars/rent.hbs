@@ -1,0 +1,64 @@
+<div class="padding-layout py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <form method="POST" action="/rents" class="lg:col-span-2 bg-white-0 rounded-[10px] p-6 shadow-md space-y-6">
+    <input type="hidden" name="carId" value="{{car.id}}" />
+    <input type="hidden" name="userId" value="1" />
+
+    <h1 class="h2-bold text-gray-900 mb-2">Rental Information</h1>
+    <p class="text-sm text-gray-500 mb-4">Please fill in your details and rental period.</p>
+
+    <section class="space-y-4">
+      <h2 class="text-base font-semibold text-gray-900">Rental Period</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Pick-up Date</label>
+          <input type="date" name="startDate" id="startDate" class="w-full rounded-md border border-gray-200 bg-white-0 px-3 py-2 text-sm outline-none focus:border-blue-500" required onchange="calcTotal()" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">Drop-off Date</label>
+          <input type="date" name="endDate" id="endDate" class="w-full rounded-md border border-gray-200 bg-white-0 px-3 py-2 text-sm outline-none focus:border-blue-500" required onchange="calcTotal()" />
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-2 border-t border-gray-200">
+        <span class="text-xs text-gray-500">Total days</span>
+        <span id="totalDays" class="text-sm font-semibold text-gray-900">-</span>
+      </div>
+    </section>
+
+    <input type="hidden" name="totalAmount" id="totalAmount" value="0" />
+    <button type="submit" class="btn-primary w-full md:w-auto">Confirm and Rent Now</button>
+  </form>
+
+  <aside class="bg-white-0 rounded-[10px] p-6 shadow-md space-y-4">
+    <h2 class="text-base font-semibold text-gray-900">Rental Summary</h2>
+    <div class="flex items-center gap-4">
+      <img src="{{car.filePath}}" alt="{{car.title}}" class="h-20 w-32 object-contain rounded-md bg-white-200" />
+      <div>
+        <p class="text-sm font-semibold text-gray-900">{{car.title}}</p>
+        <p class="text-xs text-gray-500">{{car.category.name}}</p>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="text-sm text-gray-500">Daily Rate</span>
+      <span class="text-base font-bold text-gray-900">${{car.dailyRate}}/day</span>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="text-sm text-gray-500">Total</span>
+      <span id="totalPrice" class="text-lg font-bold text-gray-900">$0</span>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const dailyRate = {{car.dailyRate}};
+
+  function calcTotal() {
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    if (!start || !end) return;
+    const days = Math.max(1, Math.round((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)));
+    const total = days * dailyRate;
+    document.getElementById('totalDays').textContent = days;
+    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+    document.getElementById('totalAmount').value = total;
+  }
+</script>

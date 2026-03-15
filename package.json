@@ -25,9 +25,13 @@
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/serve-static": "^5.0.4",
     "@prisma/client": "^5.22.0",
     "dotenv": "^17.3.1",
+    "express-handlebars": "^8.0.3",
+    "hbs": "^4.2.0",
     "pg": "^8.20.0",
     "prisma": "^5.22.0",
     "reflect-metadata": "^0.2.2",

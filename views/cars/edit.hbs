@@ -1,0 +1,42 @@
+<h1>Edit Car</h1>
+
+<div class="form-card">
+  <form method="POST" action="/cars/{{car.id}}/update">
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input type="text" name="title" class="form-input" value="{{car.title}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Brand</label>
+      <input type="text" name="brand" class="form-input" value="{{car.brand}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">File Path</label>
+      <input type="text" name="filePath" class="form-input" value="{{car.filePath}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Seat Capacity</label>
+      <input type="number" name="seatCapacity" class="form-input" value="{{car.seatCapacity}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Horse Power</label>
+      <input type="number" name="horsePower" class="form-input" value="{{car.horsePower}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Max Gasoline (L)</label>
+      <input type="number" name="maxGasoline" class="form-input" value="{{car.maxGasoline}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Transmission Type</label>
+      <input type="text" name="transmissionType" class="form-input" value="{{car.transmissionType}}" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Daily Rate ($)</label>
+      <input type="number" name="dailyRate" class="form-input" value="{{car.dailyRate}}" required>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:24px;">
+      <a href="/cars" class="btn-admin-secondary">Cancel</a>
+      <button type="submit" class="btn-admin-primary">Save</button>
+    </div>
+  </form>
+</div>

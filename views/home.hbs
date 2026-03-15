@@ -1,0 +1,25 @@
+{{#if popularCars.length}}
+<section class="padding-layout-home mt-8 mb-8 w-full">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="h1-bold text-gray-900">Popular Car</h2>
+  </div>
+  <div class="grid w-full max-w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {{#each popularCars}}
+      {{> car-card}}
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+{{#if recommendedCars.length}}
+<section class="padding-layout-home mt-8 mb-8 w-full">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="h1-bold text-gray-900">Recommendation Car</h2>
+  </div>
+  <div class="grid w-full max-w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {{#each recommendedCars}}
+      {{> car-card}}
+    {{/each}}
+  </div>
+</section>
+{{/if}}

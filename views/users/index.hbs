@@ -1,0 +1,36 @@
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+  <h1 style="margin:0;">Users</h1>
+  <a href="/users/add" class="btn-admin-primary">Add User</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <td>{{this.id}}</td>
+      <td style="font-weight:600; color:#f9fafb;">{{this.displayName}}</td>
+      <td>{{this.email}}</td>
+      <td>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <a href="/users/{{this.id}}" class="btn-admin-view">View</a>
+          <a href="/users/{{this.id}}/edit" class="btn-admin-edit">Edit</a>
+          <form method="POST" action="/users/{{this.id}}/delete" style="display:inline;">
+            <button type="submit" class="btn-admin-danger">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {{/each}}
+    {{#unless users.length}}
+    <tr><td colspan="4" style="color:#6b7280;">No users yet.</td></tr>
+    {{/unless}}
+  </tbody>
+</table>
