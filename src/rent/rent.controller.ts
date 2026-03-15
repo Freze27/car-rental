@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Render, Redirect, Sse } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { RentService } from './rent.service';
 import { CreateRentDto } from './dto/create-rent.dto';
 import { UpdateRentDto } from './dto/update-rent.dto';
@@ -6,6 +7,7 @@ import { map } from 'rxjs';
 
 const ADMIN_LAYOUT = { layout: 'admin' };
 
+@ApiExcludeController()
 @Controller('rents')
 export class RentController {
   constructor(private readonly rentService: RentService) {}

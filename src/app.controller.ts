@@ -1,6 +1,8 @@
 import { Controller, Get, Query, Render } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { PrismaService } from './prisma.service';
 
+@ApiExcludeController()
 @Controller()
 export class AppController {
   constructor(private readonly prisma: PrismaService) {}

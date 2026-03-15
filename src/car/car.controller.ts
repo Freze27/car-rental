@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Body, Param, Render, Redirect } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { CarService } from './car.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 
 const ADMIN_LAYOUT = { layout: 'admin' };
 
+@ApiExcludeController()
 @Controller('cars')
 export class CarController {
   constructor(private readonly carService: CarService) {}

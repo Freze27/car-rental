@@ -11,6 +11,14 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
+  findAllPaginated(skip: number, take: number) {
+    return this.prisma.user.findMany({ skip, take });
+  }
+
+  count() {
+    return this.prisma.user.count();
+  }
+
   findOne(id: number) {
     return this.prisma.user.findUnique({
       where: { id },

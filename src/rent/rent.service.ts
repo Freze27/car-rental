@@ -15,9 +15,15 @@ export class RentService {
   constructor(private readonly prisma: PrismaService) {}
 
   findAll() {
-    return this.prisma.rent.findMany({
-      include: { user: true, car: true },
-    });
+    return this.prisma.rent.findMany({ include: { user: true, car: true } });
+  }
+
+  findAllPaginated(skip: number, take: number) {
+    return this.prisma.rent.findMany({ skip, take, include: { user: true, car: true } });
+  }
+
+  count() {
+    return this.prisma.rent.count();
   }
 
   findOne(id: number) {

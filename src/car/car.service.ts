@@ -8,9 +8,19 @@ export class CarService {
   constructor(private readonly prisma: PrismaService) {}
 
   findAll() {
+    return this.prisma.car.findMany({ include: { category: true, images: true } });
+  }
+
+  findAllPaginated(skip: number, take: number, categoryId?: number) {
     return this.prisma.car.findMany({
+      skip, take,
+      where: categoryId ? { categoryId } : undefined,
       include: { category: true, images: true },
     });
+  }
+
+  count(categoryId?: number) {
+    return this.prisma.car.count({ where: categoryId ? { categoryId } : undefined });
   }
 
   findOne(id: number) {

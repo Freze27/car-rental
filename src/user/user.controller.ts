@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Body, Param, Render, Redirect } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 const ADMIN_LAYOUT = { layout: 'admin' };
 
+@ApiExcludeController()
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
