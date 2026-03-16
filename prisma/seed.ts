@@ -3,6 +3,56 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+type SeedCar = {
+  title: string;
+  brand: string;
+  filePath: string;
+  seatCapacity: number;
+  horsePower: number;
+  maxGasoline: number;
+  transmissionType: string;
+  dailyRate: number;
+  categoryId: number;
+  images: string[];
+};
+
+async function upsertCarWithImages({ images, ...carData }: SeedCar) {
+  const existingCar = await prisma.car.findFirst({
+    where: {
+      OR: [{ title: carData.title }, { filePath: carData.filePath }],
+    },
+  });
+
+  const car = existingCar
+    ? await prisma.car.update({
+        where: { id: existingCar.id },
+        data: carData,
+      })
+    : await prisma.car.create({
+        data: carData,
+      });
+
+  for (const path of images) {
+    const existingImage = await prisma.carImage.findFirst({
+      where: {
+        carId: car.id,
+        path,
+      },
+    });
+
+    if (!existingImage) {
+      await prisma.carImage.create({
+        data: {
+          path,
+          carId: car.id,
+        },
+      });
+    }
+  }
+
+  return car;
+}
+
 async function main() {
   const categories = await Promise.all([
     prisma.category.upsert({ where: { name: 'Sport' }, update: {}, create: { name: 'Sport' } }),
@@ -110,17 +160,10 @@ async function main() {
       categoryId: categoryMap['SUV'],
       images: ['/cars/touareg/front.webp', '/cars/touareg/inside.webp', '/cars/touareg/back.webp'],
     },
-  ];
+  ] satisfies SeedCar[];
 
-  for (const { images, ...carData } of cars) {
-    const car = await prisma.car.create({
-      data: {
-        ...carData,
-        images: {
-          create: images.map(path => ({ path })),
-        },
-      },
-    });
+  for (const carData of cars) {
+    const car = await upsertCarWithImages(carData);
     console.log(`Created car: ${car.title}`);
   }
 
