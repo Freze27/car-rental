@@ -12,7 +12,6 @@ import {
   Post,
   Query,
   Sse,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -23,8 +22,6 @@ import {
 } from '@nestjs/swagger';
 import { Role } from '@prisma/client';
 import { map } from 'rxjs';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
 import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser, JwtPayload } from '../auth/decorators/current-user.decorator';
@@ -34,7 +31,6 @@ import { UpdateRentDto } from './dto/update-rent.dto';
 
 @ApiTags('rents')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('api/rents')
 export class RentController {
   constructor(private readonly rentService: RentService) {}
