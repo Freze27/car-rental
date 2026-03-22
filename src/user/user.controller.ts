@@ -45,6 +45,7 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID (own profile or admin)' })
   @ApiResponse({ status: 200, description: 'User found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: JwtPayload) {
@@ -57,6 +58,9 @@ export class UserController {
   @Get(':id/profile')
   @ApiOperation({ summary: 'Get user profile with rental stats (own or admin)' })
   @ApiResponse({ status: 200, description: 'User profile with stats' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   getProfile(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: JwtPayload) {
     if (user.role !== Role.ADMIN && user.sub !== id) {
       throw new ForbiddenException('Access denied');
@@ -67,6 +71,9 @@ export class UserController {
   @Get(':id/rents')
   @ApiOperation({ summary: 'Get rental history of a user (own or admin)' })
   @ApiResponse({ status: 200, description: 'Rent history' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   async getRents(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: JwtPayload) {
     if (user.role !== Role.ADMIN && user.sub !== id) {
       throw new ForbiddenException('Access denied');
@@ -79,6 +86,9 @@ export class UserController {
   @Post()
   @ApiOperation({ summary: '[ADMIN] Create a user directly' })
   @ApiResponse({ status: 201, description: 'User created' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
   @ApiResponse({ status: 409, description: 'Email already taken' })
   create(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
@@ -89,6 +99,9 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: '[ADMIN] Delete a user (cascades rents)' })
   @ApiResponse({ status: 204, description: 'User deleted' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
   }
@@ -96,7 +109,10 @@ export class UserController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update user profile (own or admin)' })
   @ApiResponse({ status: 200, description: 'User updated' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateUserDto,

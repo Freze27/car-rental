@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
   ApiQuery,
   ApiResponse,
@@ -92,6 +93,8 @@ export class CarController {
   @Patch(':id')
   @ApiOperation({ summary: '[ADMIN] Update a car' })
   @ApiResponse({ status: 200, description: 'Car updated' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
   @ApiResponse({ status: 404, description: 'Car not found' })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateCarDto) {
@@ -103,6 +106,7 @@ export class CarController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: '[ADMIN] Delete a car (cascades images & rents)' })
   @ApiResponse({ status: 204, description: 'Car deleted' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
   @ApiResponse({ status: 404, description: 'Car not found' })
   remove(@Param('id', ParseIntPipe) id: number) {
@@ -112,6 +116,11 @@ export class CarController {
   @Roles(Role.ADMIN)
   @Post(':id/images')
   @ApiOperation({ summary: '[ADMIN] Add image to a car' })
+  @ApiBody({ schema: { properties: { path: { type: 'string', example: '/cars/porsche/side.webp' } } } })
+  @ApiResponse({ status: 201, description: 'Image added' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
+  @ApiResponse({ status: 404, description: 'Car not found' })
   addImage(@Param('id', ParseIntPipe) carId: number, @Body('path') path: string) {
     return this.carService.addImage(carId, path);
   }
@@ -120,6 +129,10 @@ export class CarController {
   @Delete('images/:imageId')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: '[ADMIN] Delete a car image' })
+  @ApiResponse({ status: 204, description: 'Image deleted' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
+  @ApiResponse({ status: 404, description: 'Image not found' })
   removeImage(@Param('imageId', ParseIntPipe) imageId: number) {
     return this.carService.removeImage(imageId);
   }

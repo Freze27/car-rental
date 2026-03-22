@@ -54,6 +54,8 @@ export class RentController {
   @ApiQuery({ name: 'from', required: false, example: '2025-01-01' })
   @ApiQuery({ name: 'to', required: false, example: '2025-12-31' })
   @ApiResponse({ status: 200, description: 'Paginated list of rents' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
   findAll(
     @Query('page') page = '1',
     @Query('limit') limit = '10',
@@ -73,6 +75,7 @@ export class RentController {
   @Get(':id')
   @ApiOperation({ summary: 'Get rent by ID (own rent or admin)' })
   @ApiResponse({ status: 200, description: 'Rent found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden — not your rent' })
   @ApiResponse({ status: 404, description: 'Rent not found' })
   async findOne(
@@ -90,6 +93,8 @@ export class RentController {
   @ApiOperation({ summary: 'Create a rent (userId must match current user unless admin)' })
   @ApiResponse({ status: 201, description: 'Rent created' })
   @ApiResponse({ status: 400, description: 'Validation / date error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — userId mismatch' })
   @ApiResponse({ status: 409, description: 'Car already rented for these dates' })
   create(@Body() dto: CreateRentDto, @CurrentUser() user: JwtPayload) {
     if (user.role !== Role.ADMIN && Number(dto.userId) !== user.sub) {
@@ -102,6 +107,10 @@ export class RentController {
   @Patch(':id')
   @ApiOperation({ summary: '[ADMIN] Update a rent' })
   @ApiResponse({ status: 200, description: 'Rent updated' })
+  @ApiResponse({ status: 400, description: 'Validation / date error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
+  @ApiResponse({ status: 404, description: 'Rent not found' })
   @ApiResponse({ status: 409, description: 'Date conflict' })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateRentDto) {
     return this.rentService.update(id, dto);
@@ -112,6 +121,9 @@ export class RentController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: '[ADMIN] Delete a rent' })
   @ApiResponse({ status: 204, description: 'Rent deleted' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden — admin only' })
+  @ApiResponse({ status: 404, description: 'Rent not found' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.rentService.remove(id);
   }
