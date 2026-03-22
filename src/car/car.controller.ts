@@ -62,14 +62,6 @@ export class CarController {
   }
 
   @Public()
-  @Get('categories')
-  @ApiOperation({ summary: 'Get all categories' })
-  @ApiResponse({ status: 200, description: 'List of categories' })
-  findCategories() {
-    return this.carService.findAllCategories();
-  }
-
-  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get car by ID' })
   @ApiResponse({ status: 200, description: 'Car found' })

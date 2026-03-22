@@ -6,9 +6,10 @@ import { CarModule } from './car/car.module';
 import { RentModule } from './rent/rent.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [AuthModule, CarModule, RentModule, UserModule],
+  imports: [AuthModule, CarModule, RentModule, UserModule, CategoryModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

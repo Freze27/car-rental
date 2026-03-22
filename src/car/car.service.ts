@@ -65,10 +65,6 @@ export class CarService {
     return car;
   }
 
-  findAllCategories() {
-    return this.prisma.category.findMany({ orderBy: { name: 'asc' } });
-  }
-
   private async assertCategoryExists(id: number) {
     const cat = await this.prisma.category.findUnique({ where: { id } });
     if (!cat) throw new NotFoundException(`Category #${id} not found`);
