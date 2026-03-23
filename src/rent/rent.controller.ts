@@ -11,7 +11,6 @@ import {
   Patch,
   Post,
   Query,
-  Sse,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -21,8 +20,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Role } from '@prisma/client';
-import { map } from 'rxjs';
-import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser, JwtPayload } from '../auth/decorators/current-user.decorator';
 import { RentService } from './rent.service';
@@ -34,15 +31,6 @@ import { UpdateRentDto } from './dto/update-rent.dto';
 @Controller('api/rents')
 export class RentController {
   constructor(private readonly rentService: RentService) {}
-
-  @Public()
-  @Sse('events')
-  @ApiOperation({ summary: 'SSE stream — fires on every new rent' })
-  events() {
-    return this.rentService.rentEvents$.pipe(
-      map((data) => ({ data: JSON.stringify(data) })),
-    );
-  }
 
   @Roles(Role.ADMIN)
   @Get()

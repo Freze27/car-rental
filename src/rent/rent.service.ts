@@ -4,7 +4,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Subject } from 'rxjs';
 import { PrismaService } from '../prisma.service';
 import { CreateRentDto } from './dto/create-rent.dto';
 import { UpdateRentDto } from './dto/update-rent.dto';
@@ -20,11 +19,6 @@ export interface RentFilters {
 export class RentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly rentCreated$ = new Subject<{ carTitle: string; userId: number }>();
-
-  get rentEvents$() {
-    return this.rentCreated$.asObservable();
-  }
 
   findAll(filters: RentFilters = {}) {
     return this.prisma.rent.findMany({
@@ -91,7 +85,6 @@ export class RentService {
       include: { user: true, car: { include: { category: true } } },
     });
 
-    this.rentCreated$.next({ carTitle: car.title, userId: rent.userId });
     return rent;
   }
 
