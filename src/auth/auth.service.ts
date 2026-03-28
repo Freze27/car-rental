@@ -14,8 +14,11 @@ export class AuthService {
 
   async register(dto: RegisterDto) {
     const user = await this.userService.create(dto);
-    const accessToken = this.signToken(user.id, user.email, user.role);
-    return { user, accessToken };
+    return {
+      user,
+      accessToken: this.signAccessToken(user.id, user.email, user.role),
+      refreshToken: this.signRefreshToken(user.id, user.email, user.role),
+    };
   }
 
   async login(dto: LoginDto) {
@@ -25,17 +28,45 @@ export class AuthService {
     const passwordMatch = await bcrypt.compare(dto.password, user.password);
     if (!passwordMatch) throw new UnauthorizedException('Invalid credentials');
 
-    const accessToken = this.signToken(user.id, user.email, user.role);
     const { password: _pw, ...safeUser } = user;
 
-    return { user: safeUser, accessToken };
+    return {
+      user: safeUser,
+      accessToken: this.signAccessToken(user.id, user.email, user.role),
+      refreshToken: this.signRefreshToken(user.id, user.email, user.role),
+    };
+  }
+
+  async refresh(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify<{ sub: number; email: string; role: string }>(
+        refreshToken,
+        { secret: process.env.JWT_REFRESH_SECRET ?? 'refresh-secret' },
+      );
+      return {
+        accessToken: this.signAccessToken(payload.sub, payload.email, payload.role),
+        refreshToken: this.signRefreshToken(payload.sub, payload.email, payload.role),
+      };
+    } catch {
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
   }
 
   async me(userId: number) {
     return this.userService.findOne(userId);
   }
 
-  private signToken(userId: number, email: string, role: string): string {
+  private signAccessToken(userId: number, email: string, role: string): string {
     return this.jwtService.sign({ sub: userId, email, role });
+  }
+
+  private signRefreshToken(userId: number, email: string, role: string): string {
+    return this.jwtService.sign(
+      { sub: userId, email, role },
+      {
+        secret: process.env.JWT_REFRESH_SECRET ?? 'refresh-secret',
+        expiresIn: '30d',
+      },
+    );
   }
 }
