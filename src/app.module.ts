@@ -18,6 +18,8 @@ import { GraphqlModule } from './graphql/graphql.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }) => ({ req }),
+      playground: true,
+      csrfPrevention: false,
     }),
     AuthModule,
     CarModule,
