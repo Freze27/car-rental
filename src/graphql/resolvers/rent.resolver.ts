@@ -13,7 +13,7 @@ export class RentResolver {
 
   @Roles(Role.ADMIN)
   @Query(() => [RentType])
-  async rents(): Promise<RentType[]> {
+  async rents() {
     return this.rentService.findAll({});
   }
 
@@ -21,7 +21,7 @@ export class RentResolver {
   async rent(
     @Args('id', { type: () => Int }) id: number,
     @CurrentUser() currentUser: JwtPayload,
-  ): Promise<RentType> {
+  ) {
     const rent = await this.rentService.findOne(id);
     if (currentUser.role !== Role.ADMIN && rent.userId !== currentUser.sub) {
       throw new ForbiddenException('Access denied');
@@ -33,7 +33,7 @@ export class RentResolver {
   createRent(
     @Args('input') input: CreateRentInput,
     @CurrentUser() currentUser: JwtPayload,
-  ): Promise<RentType> {
+  ) {
     if (currentUser.role !== Role.ADMIN && input.userId !== currentUser.sub) {
       throw new ForbiddenException('Access denied');
     }
@@ -45,7 +45,7 @@ export class RentResolver {
   updateRent(
     @Args('id', { type: () => Int }) id: number,
     @Args('input') input: UpdateRentInput,
-  ): Promise<RentType> {
+  ) {
     return this.rentService.update(id, input);
   }
 

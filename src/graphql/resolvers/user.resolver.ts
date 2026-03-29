@@ -12,13 +12,13 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => UserType)
-  me(@CurrentUser() user: JwtPayload): Promise<UserType> {
+  me(@CurrentUser() user: JwtPayload) {
     return this.userService.findOne(user.sub);
   }
 
   @Roles(Role.ADMIN)
   @Query(() => [UserType])
-  users(): Promise<UserType[]> {
+  users() {
     return this.userService.findAll();
   }
 
@@ -26,7 +26,7 @@ export class UserResolver {
   async user(
     @Args('id', { type: () => Int }) id: number,
     @CurrentUser() currentUser: JwtPayload,
-  ): Promise<UserType> {
+  ) {
     if (currentUser.role !== Role.ADMIN && currentUser.sub !== id) {
       throw new ForbiddenException('Access denied');
     }
@@ -38,7 +38,7 @@ export class UserResolver {
     @Args('id', { type: () => Int }) id: number,
     @Args('input') input: UpdateUserInput,
     @CurrentUser() currentUser: JwtPayload,
-  ): Promise<UserType> {
+  ) {
     if (currentUser.role !== Role.ADMIN && currentUser.sub !== id) {
       throw new ForbiddenException('Access denied');
     }
