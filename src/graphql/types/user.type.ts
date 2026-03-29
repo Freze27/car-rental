@@ -17,7 +17,7 @@ export class UserType {
   @Field()
   displayName: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   image?: string | null;
 
   @Field()
