@@ -20,6 +20,7 @@ import { GraphqlModule } from './graphql/graphql.module';
       autoSchemaFile: true,
       context: ({ req }) => ({ req }),
       playground: true,
+      introspection: true,
       csrfPrevention: false,
     }),
     AuthModule,
