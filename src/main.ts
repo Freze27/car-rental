@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -38,6 +40,11 @@ async function bootstrap() {
   app.useGlobalGuards(
     new JwtAuthGuard(jwtService, reflector),
     new RolesGuard(reflector),
+  );
+
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new TransformInterceptor(),
   );
 
   const config = new DocumentBuilder()
