@@ -80,11 +80,13 @@ export class CarService {
 
     if (images && images.length > 0) {
       imageRecords = images.map((path) => ({ path }));
-    } else {
+    } else if (data.filePath && data.filePath !== 'placeholder') {
       const folder = data.filePath.substring(0, data.filePath.lastIndexOf('/') + 1);
       imageRecords = ['front', 'back', 'inside', 'outside'].map((name) => ({
         path: `${folder}${name}.webp`,
       }));
+    } else {
+      imageRecords = [];
     }
 
     return this.prisma.car.create({
