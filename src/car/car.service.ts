@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
+import { StorageService } from '../storage/storage.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 
@@ -14,7 +15,10 @@ export interface CarFilters {
 
 @Injectable()
 export class CarService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly storage: StorageService,
+  ) {}
 
   private buildWhere(filters: CarFilters): Prisma.CarWhereInput {
     const where: Prisma.CarWhereInput = {};
@@ -114,6 +118,8 @@ export class CarService {
 
   async remove(id: number) {
     await this.findOne(id);
+    const images = await this.prisma.carImage.findMany({ where: { carId: id } });
+    await Promise.all(images.map((img) => this.storage.delete(img.path)));
     await this.prisma.carImage.deleteMany({ where: { carId: id } });
     await this.prisma.rent.deleteMany({ where: { carId: id } });
     return this.prisma.car.delete({ where: { id } });
