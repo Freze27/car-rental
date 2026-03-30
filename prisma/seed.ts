@@ -54,6 +54,20 @@ async function upsertCarWithImages({ images, ...carData }: SeedCar) {
 }
 
 async function main() {
+  await prisma.user.upsert({
+    where: { email: 'admin@carrental.com' },
+    update: {},
+    create: {
+      email: 'admin@carrental.com',
+      firstName: 'Admin',
+      lastName: 'Admin',
+      displayName: 'Admin',
+      password: '$2b$10$j0hWT0v753iGyndzA.53VOuwyPK6h89ui.cGAhklQPPWG8aueUJg.',
+      role: 'ADMIN',
+    },
+  });
+  console.log('Admin user ready');
+
   const categories = await Promise.all([
     prisma.category.upsert({ where: { name: 'Sport' }, update: {}, create: { name: 'Sport' } }),
     prisma.category.upsert({ where: { name: 'SUV' }, update: {}, create: { name: 'SUV' } }),
