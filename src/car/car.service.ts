@@ -32,7 +32,7 @@ export class CarService {
   findAll(filters: CarFilters = {}) {
     return this.prisma.car.findMany({
       where: this.buildWhere(filters),
-      include: { category: true, images: true },
+      include: { category: true, images: { orderBy: { id: 'asc' } } },
       orderBy: { id: 'asc' },
     });
   }
@@ -47,7 +47,7 @@ export class CarService {
         skip,
         take,
         where,
-        include: { category: true, images: true },
+        include: { category: true, images: { orderBy: { id: 'asc' } } },
         orderBy: { id: 'asc' },
       }),
       this.prisma.car.count({ where }),
@@ -59,7 +59,7 @@ export class CarService {
   async findOne(id: number) {
     const car = await this.prisma.car.findUnique({
       where: { id },
-      include: { category: true, images: true },
+      include: { category: true, images: { orderBy: { id: 'asc' } } },
     });
     if (!car) throw new NotFoundException(`Car #${id} not found`);
     return car;
@@ -89,7 +89,7 @@ export class CarService {
 
     return this.prisma.car.create({
       data: { ...data, images: { create: imageRecords } },
-      include: { category: true, images: true },
+      include: { category: true, images: { orderBy: { id: 'asc' } } },
     });
   }
 
@@ -106,7 +106,7 @@ export class CarService {
     return this.prisma.car.update({
       where: { id },
       data,
-      include: { category: true, images: true },
+      include: { category: true, images: { orderBy: { id: 'asc' } } },
     });
   }
 
