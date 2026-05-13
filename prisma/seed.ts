@@ -88,7 +88,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 230,
       categoryId: categoryMap['Sport'],
-      images: ['/cars/911/front.webp', '/cars/911/inside.webp', '/cars/911/back.webp'],
+      images: ['/cars/911/outside.webp', '/cars/911/front.webp', '/cars/911/inside.webp', '/cars/911/back.webp'],
     },
     {
       title: 'Porsche Cayenne Turbo',
@@ -100,7 +100,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 195,
       categoryId: categoryMap['SUV'],
-      images: ['/cars/caynne/front.webp', '/cars/caynne/inside.webp', '/cars/caynne/back.webp'],
+      images: ['/cars/caynne/outside.webp', '/cars/caynne/front.webp', '/cars/caynne/inside.webp', '/cars/caynne/back.webp'],
     },
     {
       title: 'Bentley Continental GT',
@@ -112,7 +112,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 255,
       categoryId: categoryMap['Coupe'],
-      images: ['/cars/continental/front.webp', '/cars/continental/inside.webp', '/cars/continental/back.webp'],
+      images: ['/cars/continental/outside.webp', '/cars/continental/front.webp', '/cars/continental/inside.webp', '/cars/continental/back.webp'],
     },
     {
       title: 'Dodge Challenger Hellcat',
@@ -124,7 +124,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 205,
       categoryId: categoryMap['Sport'],
-      images: ['/cars/hellcat/front.webp', '/cars/hellcat/inside.webp', '/cars/hellcat/back.webp'],
+      images: ['/cars/hellcat/outside.webp', '/cars/hellcat/front.webp', '/cars/hellcat/inside.webp', '/cars/hellcat/back.webp'],
     },
     {
       title: 'BMW iX xDrive50',
@@ -136,7 +136,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 185,
       categoryId: categoryMap['SUV'],
-      images: ['/cars/ix/front.webp', '/cars/ix/inside.webp', '/cars/ix/back.webp'],
+      images: ['/cars/ix/outside.webp', '/cars/ix/front.webp', '/cars/ix/inside.webp', '/cars/ix/back.webp'],
     },
     {
       title: 'BMW M5 Competition',
@@ -148,7 +148,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 215,
       categoryId: categoryMap['Sedan'],
-      images: ['/cars/m5/front.webp', '/cars/m5/inside.webp', '/cars/m5/back.webp'],
+      images: ['/cars/m5/outside.webp', '/cars/m5/front.webp', '/cars/m5/inside.webp', '/cars/m5/back.webp'],
     },
     {
       title: 'Mercedes-AMG SL63',
@@ -160,7 +160,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 240,
       categoryId: categoryMap['Coupe'],
-      images: ['/cars/sl63/front.webp', '/cars/sl63/inside.webp', '/cars/sl63/back.webp'],
+      images: ['/cars/sl63/outside.webp', '/cars/sl63/front.webp', '/cars/sl63/inside.webp', '/cars/sl63/back.webp'],
     },
     {
       title: 'Volkswagen Touareg R-Line',
@@ -172,7 +172,7 @@ async function main() {
       transmissionType: 'Automatic',
       dailyRate: 165,
       categoryId: categoryMap['SUV'],
-      images: ['/cars/touareg/front.webp', '/cars/touareg/inside.webp', '/cars/touareg/back.webp'],
+      images: ['/cars/touareg/outside.webp', '/cars/touareg/front.webp', '/cars/touareg/inside.webp', '/cars/touareg/back.webp'],
     },
   ] satisfies SeedCar[];
 
