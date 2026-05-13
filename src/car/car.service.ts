@@ -20,6 +20,16 @@ export class CarService {
     private readonly storage: StorageService,
   ) {}
 
+  private sortImages<T extends { filePath: string; images: { id: number; path: string }[] }>(car: T): T {
+    return {
+      ...car,
+      images: [
+        ...car.images.filter(img => img.path === car.filePath),
+        ...car.images.filter(img => img.path !== car.filePath),
+      ],
+    };
+  }
+
   private buildWhere(filters: CarFilters): Prisma.CarWhereInput {
     const where: Prisma.CarWhereInput = {};
     if (filters.categoryId) where.categoryId = filters.categoryId;
@@ -33,12 +43,13 @@ export class CarService {
     return where;
   }
 
-  findAll(filters: CarFilters = {}) {
-    return this.prisma.car.findMany({
+  async findAll(filters: CarFilters = {}) {
+    const cars = await this.prisma.car.findMany({
       where: this.buildWhere(filters),
       include: { category: true, images: { orderBy: { id: 'asc' } } },
       orderBy: { id: 'asc' },
     });
+    return cars.map(car => this.sortImages(car));
   }
 
   async findAllPaginated(page: number, limit: number, filters: CarFilters = {}) {
@@ -46,7 +57,7 @@ export class CarService {
     const skip = (Math.max(1, page) - 1) * take;
     const where = this.buildWhere(filters);
 
-    const [data, total] = await Promise.all([
+    const [rawData, total] = await Promise.all([
       this.prisma.car.findMany({
         skip,
         take,
@@ -57,6 +68,7 @@ export class CarService {
       this.prisma.car.count({ where }),
     ]);
 
+    const data = rawData.map(car => this.sortImages(car));
     return { data, total, page: Math.max(1, page), totalPages: Math.ceil(total / take) };
   }
 
@@ -66,7 +78,7 @@ export class CarService {
       include: { category: true, images: { orderBy: { id: 'asc' } } },
     });
     if (!car) throw new NotFoundException(`Car #${id} not found`);
-    return car;
+    return this.sortImages(car);
   }
 
   private async assertCategoryExists(id: number) {
