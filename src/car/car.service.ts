@@ -86,7 +86,7 @@ export class CarService {
       imageRecords = images.map((path) => ({ path }));
     } else if (data.filePath && data.filePath !== 'placeholder') {
       const folder = data.filePath.substring(0, data.filePath.lastIndexOf('/') + 1);
-      imageRecords = ['front', 'back', 'inside', 'outside'].map((name) => ({
+      imageRecords = ['outside', 'front', 'back', 'inside'].map((name) => ({
         path: `${folder}${name}.webp`,
       }));
     } else {
